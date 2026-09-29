@@ -17,21 +17,151 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #07111f;
-            color: #eaf2ff;
+            background: #f6f8fc;
+            color: #263449;
             line-height: 1.6;
         }
 
-        /* NAVBAR */
+        /* =========================
+           OPENING DOOR ANIMATION
+        ========================= */
+
+        .door-intro {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #111827;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: introFade 0.8s ease 4.6s forwards;
+        }
+
+        .door {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a5f, #172033);
+            z-index: 2;
+        }
+
+        .door-left {
+            left: 0;
+            transform-origin: left center;
+            animation: openLeft 2.3s cubic-bezier(.77,0,.18,1) 2.1s forwards;
+        }
+
+        .door-right {
+            right: 0;
+            transform-origin: right center;
+            animation: openRight 2.3s cubic-bezier(.77,0,.18,1) 2.1s forwards;
+        }
+
+        .door::before {
+            content: "";
+            position: absolute;
+            inset: 25px;
+            border: 2px solid rgba(255,255,255,0.12);
+        }
+
+        .door-handle {
+            position: absolute;
+            top: 50%;
+            width: 14px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(#f8d477, #b8862c);
+            box-shadow: 0 0 15px rgba(248,212,119,.35);
+        }
+
+        .door-left .door-handle {
+            right: 25px;
+        }
+
+        .door-right .door-handle {
+            left: 25px;
+        }
+
+        .intro-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            animation: introContent 1.4s ease 0.5s both;
+        }
+
+        .intro-content h2 {
+            font-size: clamp(32px, 6vw, 65px);
+            letter-spacing: 5px;
+            margin-bottom: 8px;
+        }
+
+        .intro-content p {
+            color: #dbeafe;
+            letter-spacing: 4px;
+            font-size: 14px;
+        }
+
+        .intro-line {
+            width: 0;
+            height: 2px;
+            margin: 20px auto 0;
+            background: #f8d477;
+            animation: lineGrow 1.2s ease 1.2s forwards;
+        }
+
+        @keyframes openLeft {
+            to {
+                transform: perspective(1200px) rotateY(-105deg);
+            }
+        }
+
+        @keyframes openRight {
+            to {
+                transform: perspective(1200px) rotateY(105deg);
+            }
+        }
+
+        @keyframes introContent {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes lineGrow {
+            to {
+                width: 180px;
+            }
+        }
+
+        @keyframes introFade {
+            to {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
 
         header {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(7, 17, 31, 0.9);
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 3px 18px rgba(30,50,80,0.06);
         }
 
         nav {
@@ -46,11 +176,11 @@
         .logo {
             font-size: 25px;
             font-weight: bold;
-            color: #38bdf8;
+            color: #183b70;
         }
 
         .logo span {
-            color: #a78bfa;
+            color: #2563eb;
         }
 
         nav ul {
@@ -60,17 +190,19 @@
         }
 
         nav ul li a {
-            color: #eaf2ff;
+            color: #526174;
             text-decoration: none;
             font-size: 15px;
             transition: 0.3s;
         }
 
         nav ul li a:hover {
-            color: #38bdf8;
+            color: #2563eb;
         }
 
-        /* HERO */
+        /* =========================
+           HERO - BLUE + PURPLE
+        ========================= */
 
         .hero {
             min-height: 100vh;
@@ -81,6 +213,12 @@
             padding: 100px 20px 50px;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #eef6ff 0%,
+                #f8faff 55%,
+                #f4efff 100%
+            );
         }
 
         .hero::before {
@@ -88,9 +226,9 @@
             position: absolute;
             width: 350px;
             height: 350px;
-            background: #2563eb;
+            background: #60a5fa;
             filter: blur(150px);
-            opacity: 0.25;
+            opacity: 0.20;
             top: 10%;
             left: 10%;
         }
@@ -100,9 +238,9 @@
             position: absolute;
             width: 300px;
             height: 300px;
-            background: #9333ea;
+            background: #a78bfa;
             filter: blur(150px);
-            opacity: 0.2;
+            opacity: 0.16;
             right: 10%;
             bottom: 10%;
         }
@@ -114,32 +252,34 @@
         }
 
         .welcome {
-            color: #38bdf8;
+            color: #2563eb;
             letter-spacing: 4px;
             font-size: 14px;
             margin-bottom: 15px;
+            font-weight: bold;
         }
 
         h1 {
             font-size: clamp(40px, 7vw, 70px);
             margin-bottom: 15px;
+            color: #162b4d;
         }
 
         h1 span {
-            color: #38bdf8;
+            color: #2563eb;
             animation: glow 2s infinite alternate;
         }
 
         .typing-text {
             font-size: clamp(24px, 4vw, 36px);
-            color: #a78bfa;
+            color: #6d4bc3;
             margin-bottom: 20px;
         }
 
         .hero-description {
             max-width: 700px;
             margin: auto;
-            color: #a9b7c9;
+            color: #526174;
             font-size: 17px;
         }
 
@@ -154,9 +294,9 @@
             border-radius: 30px;
             text-decoration: none;
             color: white;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
             transition: 0.3s;
-            box-shadow: 0 8px 25px rgba(37,99,235,0.25);
+            box-shadow: 0 8px 25px rgba(37,99,235,0.20);
         }
 
         .btn:hover {
@@ -165,10 +305,13 @@
 
         .secondary {
             background: transparent;
-            border: 1px solid #38bdf8;
+            color: #2563eb;
+            border: 1px solid #93c5fd;
         }
 
-        /* COMMON */
+        /* =========================
+           COMMON
+        ========================= */
 
         section {
             padding: 90px 20px;
@@ -183,13 +326,20 @@
             text-align: center;
             font-size: 38px;
             margin-bottom: 50px;
+            color: #172b4d;
         }
 
         .section-title span {
-            color: #38bdf8;
+            color: #2563eb;
         }
 
-        /* ABOUT */
+        /* =========================
+           ABOUT - LIGHT BLUE
+        ========================= */
+
+        #about {
+            background: #f0f7ff;
+        }
 
         .about-content {
             display: grid;
@@ -199,24 +349,44 @@
         }
 
         .about-box {
-            background: rgba(255,255,255,0.04);
+            background: linear-gradient(
+                135deg,
+                #ffffff,
+                #eef7ff
+            );
             padding: 30px;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid #dbeafe;
             transition: 0.3s;
+            box-shadow: 0 10px 28px rgba(37,99,235,0.07);
         }
 
         .about-box:hover {
             transform: translateY(-8px);
-            border-color: #38bdf8;
+            border-color: #93c5fd;
+        }
+
+        .about-box h3 {
+            color: #244c80;
+            margin-bottom: 12px;
         }
 
         .about-box p {
-            color: #b8c5d6;
+            color: #536275;
             margin-bottom: 15px;
         }
 
-        /* SKILLS */
+        /* =========================
+           SKILLS - LIGHT GREEN
+        ========================= */
+
+        #skills {
+            background: #f2fbf7;
+        }
+
+        #skills .section-title span {
+            color: #15966b;
+        }
 
         .skills-grid {
             display: grid;
@@ -227,28 +397,35 @@
         .skill-card {
             text-align: center;
             padding: 25px 15px;
-            background: rgba(255,255,255,0.04);
+            background: #ffffff;
             border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid #d7eee3;
             transition: 0.3s;
+            box-shadow: 0 8px 22px rgba(30,100,70,0.06);
         }
 
         .skill-card:hover {
             transform: translateY(-10px);
-            background: rgba(56,189,248,0.08);
-            border-color: #38bdf8;
+            background: #effcf6;
+            border-color: #86d7b5;
         }
 
         .skill-card h3 {
-            color: #38bdf8;
+            color: #15966b;
             margin-bottom: 8px;
         }
 
         .skill-card p {
-            color: #a9b7c9;
+            color: #66758a;
         }
 
-        /* PROJECTS */
+        /* =========================
+           PROJECTS - BLUE / GREEN / PURPLE
+        ========================= */
+
+        #projects {
+            background: #f8fafc;
+        }
 
         .projects-grid {
             display: grid;
@@ -257,20 +434,461 @@
         }
 
         .project-card {
-            background: rgba(255,255,255,0.04);
             padding: 28px;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
             transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(30,50,80,0.07);
+        }
+
+        /* Project 1 - Blue */
+
+        .project-card:nth-child(1) {
+            background: linear-gradient(145deg, #eff8ff, #ffffff);
+            border: 1px solid #bfdbfe;
+        }
+
+        .project-card:nth-child(1) h3 {
+            color: #2563eb;
+        }
+
+        /* Project 2 - Green */
+
+        .project-card:nth-child(2) {
+            background: linear-gradient(145deg, #f1fdf7, #ffffff);
+            border: 1px solid #bbf7d0;
+        }
+
+        .project-card:nth-child(2) h3 {
+            color: #15966b;
+        }
+
+        /* Project 3 - Purple */
+
+        .project-card:nth-child(3) {
+            background: linear-gradient(145deg, #faf5ff, #ffffff);
+            border: 1px solid #ddd6fe;
+        }
+
+        .project-card:nth-child(3) h3 {
+            color: #7c3aed;
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            border-color: #a78bfa;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            box-shadow: 0 15px 35px rgba(30,50,80,0.12);
         }
 
-        .project-card h3 {
-            color: #a78bfa;
-            margin-bot
+        .project-card p {
+            color: #617084;
+            margin-bottom: 20px;
+        }
+
+        .project-btn {
+            display: inline-block;
+            color: #2563eb;
+            text-decoration: none;
+            cursor: default;
+            padding: 8px 15px;
+            border: 1px solid #93c5fd;
+            border-radius: 20px;
+            background: #eff6ff;
+            transition: 0.3s;
+        }
+
+        .project-btn:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* =========================
+           EDUCATION - ORANGE
+        ========================= */
+
+        #education {
+            background: #fff9f1;
+        }
+
+        #education .section-title span {
+            color: #c76b16;
+        }
+
+        .education {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .education-card {
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f59e0b;
+            background: linear-gradient(
+                135deg,
+                #ffffff,
+                #fff7ed
+            );
+            border-radius: 10px;
+            transition: 0.3s;
+            box-shadow: 0 9px 24px rgba(180,100,30,0.07);
+        }
+
+        .education-card:hover {
+            transform: translateX(8px);
+        }
+
+        .education-card h3 {
+            color: #a85c12;
+        }
+
+        .education-card p {
+            color: #6b7280;
+        }
+
+        /* =========================
+           CONTACT - TEAL / PURPLE
+        ========================= */
+
+        #contact {
+            background: linear-gradient(
+                135deg,
+                #effaff,
+                #f7f2ff
+            );
+        }
+
+        #contact .section-title span {
+            color: #0f8b8d;
+        }
+
+        .contact-box {
+            max-width: 700px;
+            margin: auto;
+            text-align: center;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #dbe4f0;
+            box-shadow: 0 10px 28px rgba(30,50,80,0.08);
+        }
+
+        .contact-box h3 {
+            color: #1f4f63;
+        }
+
+        .contact-box p {
+            color: #637286;
+            margin: 10px;
+        }
+
+        .contact-links {
+            margin-top: 25px;
+        }
+
+        .contact-links a {
+            display: inline-block;
+            margin: 8px;
+            color: #0f8b8d;
+            text-decoration: none;
+            padding: 10px 18px;
+            border: 1px solid #70c8ca;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        .contact-links a:hover {
+            background: #0f8b8d;
+            color: white;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #edf2f8;
+            border-top: 1px solid #dce3ed;
+            color: #526174;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 3px rgba(37,99,235,0.15);
+            }
+
+            to {
+                text-shadow: 0 0 15px rgba(37,99,235,0.30);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 900px) {
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 650px) {
+
+            nav ul {
+                display: none;
+            }
+
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            section {
+                padding: 70px 15px;
+            }
+
+            .door::before {
+                inset: 15px;
+            }
+
+            .intro-content h2 {
+                letter-spacing: 2px;
+            }
+
+            .intro-content p {
+                letter-spacing: 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     OPENING DOOR
+========================= -->
+
+<div class="door-intro">
+
+    <div class="door door-left">
+        <span class="door-handle"></span>
+    </div>
+
+    <div class="door door-right">
+        <span class="door-handle"></span>
+    </div>
+
+    <div class="intro-content">
+        <h2>SACHIN BHATIA</h2>
+        <p>DATA SCIENCE PORTFOLIO</p>
+        <div class="intro-line"></div>
+    </div>
+
+</div>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            Sachin<span>.</span>
+        </div>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+    </nav>
+
+</header>
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <p class="welcome">
+            WELCOME TO MY PORTFOLIO
+        </p>
+
+        <h1>
+            Hi, I'm <span>Sachin Bhatia</span>
+        </h1>
+
+        <h2 class="typing-text">
+            Aspiring Data Scientist
+        </h2>
+
+        <p class="hero-description">
+            Passionate about Data Science, Machine Learning and Python.
+            I enjoy turning data into meaningful insights and building
+            practical solutions using technology.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#projects" class="btn">
+                View Projects
+            </a>
+
+            <a href="#contact" class="btn secondary">
+                Contact Me
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            About <span>Me</span>
+        </h2>
+
+        <div class="about-content">
+
+            <div class="about-box">
+
+                <h3>Who I Am</h3>
+
+                <p>
+                    I am Sachin Bhatia, an aspiring Data Scientist
+                    interested in Data Science, Machine Learning and
+                    Python programming.
+                </p>
+
+                <p>
+                    I am continuously learning new technologies and
+                    working on practical projects to improve my
+                    technical and problem-solving skills.
+                </p>
+
+            </div>
+
+            <div class="about-box">
+
+                <h3>My Goal</h3>
+
+                <p>
+                    My goal is to build a strong career in Data Science
+                    and use data-driven approaches to solve real-world
+                    problems.
+                </p>
+
+                <p>
+                    I enjoy learning, experimenting with datasets and
+                    creating useful machine learning solutions.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     SKILLS
+========================= -->
+
+<section id="skills">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            My <span>Skills</span>
+        </h2>
+
+        <div class="skills-grid">
+
+            <div class="skill-card">
+                <h3>Python</h3>
+                <p>Programming & Data Analysis</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>SQL</h3>
+                <p>Database & Queries</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>Machine Learning</h3>
+                <p>ML Algorithms & Models</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>Pandas</h3>
+                <p>Data Manipulation</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>NumPy</h3>
+                <p>Numerical Computing</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>Matplotlib</h3>
+                <p>Data Visualization</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>Scikit-Learn</h3>
+                <p>Machine Learning</p>
+            </div>
+
+            <div class="skill-card">
+                <h3>Git & GitHub</h3>
+                <p>Version Control</p>
+            </div>
 ```
+
+        
